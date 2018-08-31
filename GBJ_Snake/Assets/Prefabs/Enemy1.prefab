@@ -444,8 +444,8 @@ TrailRenderer:
   m_GameObject: {fileID: 1554572727490776}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -536,8 +536,8 @@ TrailRenderer:
   m_GameObject: {fileID: 1230353296845656}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -688,7 +688,9 @@ MonoBehaviour:
   lift: 1
   trailSectionPrefab: {fileID: 1424767635611620, guid: 4ccedf16bd233394eabb4d314f21e616,
     type: 2}
-  crashPrefab: {fileID: 1068536114513414, guid: 782217bbafe58c049a2333acf68cc2b9,
+  crashPrefab: {fileID: 1068536114513414, guid: 46462b493fa9b0d448bf52e97dd9c4bd,
+    type: 2}
+  bigCrashPrefab: {fileID: 1068536114513414, guid: 782217bbafe58c049a2333acf68cc2b9,
     type: 2}
 --- !u!135 &135677130377522274
 SphereCollider:

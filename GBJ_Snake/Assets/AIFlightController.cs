@@ -17,6 +17,7 @@ public class AIFlightController : MonoBehaviour
 
     public GameObject trailSectionPrefab;
     public GameObject crashPrefab;
+    public GameObject bigCrashPrefab;
     List<GameObject> trails = new List<GameObject>();
     bool flyStraightForaBit = false;
 
@@ -154,20 +155,22 @@ public class AIFlightController : MonoBehaviour
         if (collision.collider.gameObject.layer == 10) //Terrain
         {
             GetComponent<HealthBar>().TakeDamage(1f);
-            Instantiate(crashPrefab, transform.position, transform.rotation);
         }
         else
         {
             GetComponent<HealthBar>().TakeDamage(1f/Spawner.difficulty);
 
-            Vector3 explosionPos = collision.contacts[0].point;
-            Collider[] colliders = Physics.OverlapSphere(explosionPos, 2);
-            foreach (Collider hit in colliders)
+            if (collision.rigidbody.gameObject.tag == "Player")
             {
-                Rigidbody rb = hit.GetComponent<Rigidbody>();
+                Vector3 explosionPos = collision.contacts[0].point;
+                Collider[] colliders = Physics.OverlapSphere(explosionPos, 2);
+                foreach (Collider hit in colliders)
+                {
+                    Rigidbody rb = hit.GetComponent<Rigidbody>();
 
-                if (rb != null)
-                    rb.AddExplosionForce(500, explosionPos, 10, 0);
+                    if (rb != null)
+                        rb.AddExplosionForce(50, explosionPos, 10, 0);
+                }
             }
 
         }
@@ -175,7 +178,18 @@ public class AIFlightController : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(gameObject.tag =="Enemy1")
+        Instantiate(bigCrashPrefab, transform.position, transform.rotation);
+        Vector3 explosionPos = transform.position;
+        Collider[] colliders = Physics.OverlapSphere(explosionPos, 2);
+        foreach (Collider hit in colliders)
+        {
+            Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+            if (rb != null)
+                rb.AddExplosionForce(100, explosionPos, 10, 0);
+        }
+
+        if (gameObject.tag =="Enemy1")
             Spawner.Instance.SpawnEnemy1WithDelay();
         else
             Spawner.Instance.SpawnEnemy2WithDelay();

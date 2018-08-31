@@ -5,8 +5,15 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    float reloadTime = 0.1f;
+    public float reloadTime = 0.1f;
     float timeTillFire = 0;
+    public AudioClip[] clips;
+    public AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public void  Update()
     {
@@ -15,6 +22,7 @@ public class Gun : MonoBehaviour
         {
             if (Input.GetAxis("Fire1") > 0.5f)
             {
+                audioSource.PlayOneShot(clips[Random.Range(0, clips.Length - 1)]);
                 timeTillFire = reloadTime;
                 GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
             }

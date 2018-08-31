@@ -13,6 +13,7 @@ public class FlightController : MonoBehaviour {
     Vector3 direction = Vector3.forward;
     public GameObject trailSectionPrefab;
     public GameObject crashPrefab;
+    public GameObject bulletSplashPrefab;
     List<GameObject> trails = new List<GameObject>();
     private float thrustMultiplier=2;
 
@@ -69,7 +70,7 @@ public class FlightController : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         GetComponent<HealthBar>().TakeDamage(Spawner.difficulty/10);
-        Instantiate(crashPrefab, transform.position, transform.rotation);
+        Instantiate(bulletSplashPrefab , transform.position, transform.rotation);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -77,12 +78,24 @@ public class FlightController : MonoBehaviour {
         if (collision.collider.gameObject.layer == 10) //Terrain
         {
             GetComponent<HealthBar>().TakeDamage(1f);
-            Instantiate(crashPrefab, transform.position, transform.rotation);
+            Instantiate(bulletSplashPrefab, transform.position, transform.rotation);
         }
     }
 
     private void OnDestroy()
     {
+        Instantiate(crashPrefab, transform.position, transform.rotation);
+        Vector3 explosionPos = transform.position;
+        Collider[] colliders = Physics.OverlapSphere(explosionPos, 2);
+        foreach (Collider hit in colliders)
+        {
+            Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+            if (rb != null)
+                rb.AddExplosionForce(100, explosionPos, 10, 0);
+        }
+
+
         Spawner.Instance.SpawnPlayerWithDelay();
     }
 }
