@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 
-{	
-	// Update is called once per frame
-	void Update ()
+{
+    public static bool quitting = false;
+    private void OnApplicationQuit()
+    {
+        quitting = true;
+    }
+    // Update is called once per frame
+    void Update ()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {

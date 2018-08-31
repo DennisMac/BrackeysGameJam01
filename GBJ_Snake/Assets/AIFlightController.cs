@@ -178,6 +178,7 @@ public class AIFlightController : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (ChangeScene.quitting) return;
         Instantiate(bigCrashPrefab, transform.position, transform.rotation);
         Vector3 explosionPos = transform.position;
         Collider[] colliders = Physics.OverlapSphere(explosionPos, 2);

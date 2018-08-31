@@ -19,12 +19,14 @@ public class Spawner : MonoBehaviour {
 
     public void SpawnEnemy1WithDelay(float delay = 5)
     {
+        if (ChangeScene.quitting) return;
         Invoke("SpawnEnemy1", delay);
         difficulty *= 1.1f;
         difficultyText.text = "Difficulty: " + ((int)(100 * difficulty)) / 100f;
     }
     public void SpawnEnemy2WithDelay(float delay = 5)
     {
+        if (ChangeScene.quitting) return;
         Invoke("SpawnEnemy2", delay);
         difficulty *= 1.1f;
         difficultyText.text = "Difficulty: " + ((int)(100 * difficulty)) / 100f;

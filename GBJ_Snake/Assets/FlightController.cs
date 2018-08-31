@@ -84,6 +84,7 @@ public class FlightController : MonoBehaviour {
 
     private void OnDestroy()
     {
+        if (ChangeScene.quitting) return;
         Instantiate(crashPrefab, transform.position, transform.rotation);
         Vector3 explosionPos = transform.position;
         Collider[] colliders = Physics.OverlapSphere(explosionPos, 2);
