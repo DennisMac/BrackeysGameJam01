@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/2.unity
+    path: Assets/TronPlanes/2.unity
     guid: 3674cdae67acacd4386e0d5078dec796
   - enabled: 1
     path: Assets/Scenes/1.unity

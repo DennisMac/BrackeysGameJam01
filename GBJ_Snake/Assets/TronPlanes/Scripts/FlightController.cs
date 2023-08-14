@@ -25,25 +25,27 @@ public class FlightController : MonoBehaviour {
 
     }
 
+
+    float yaw = 0f; 
+    float pitch = 0f;
+    float roll=0f;
     // Update is called once per frame
     void Update()
     {
-        rbody.AddTorque( transform.up * Input.GetAxis("Horizontal") * Time.deltaTime * turnSpeed * Spawner.difficulty) ;
-        rbody.AddTorque(transform.right * Input.GetAxis("Vertical") * Time.deltaTime * turnSpeed * Spawner.difficulty);
-        rbody.AddTorque(transform.forward * Input.GetAxis("Roll") * Time.deltaTime * rollSpeed * Spawner.difficulty);
+        PlaneInput.GetInput(ref yaw, ref pitch, ref roll);
+
+        rbody.AddTorque(transform.up * yaw * Time.deltaTime * turnSpeed * Spawner.difficulty);
+        rbody.AddTorque(transform.right * pitch * Time.deltaTime * turnSpeed * Spawner.difficulty);
+        rbody.AddTorque(transform.forward * roll * Time.deltaTime * rollSpeed * Spawner.difficulty);
 
         rbody.AddForce(transform.forward * speed * (1 + Mathf.Clamp(thrustMultiplier * Input.GetAxis("Jump"), -1f, thrustMultiplier)) * Spawner.difficulty);
         //rbody.AddForce(lift * Vector3.Dot(rbody.velocity, transform.up) * transform.forward);
 
-
         rbody.velocity = Vector3.Dot(rbody.velocity, transform.forward) * transform.forward;
-
-
 
         UpdateTrail();
 
     }
-
 
     Vector3 lastPoint;
     Vector3 leftOffset = new Vector3(0.5f, 0, -2);
